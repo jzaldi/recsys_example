@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+        <link rel="stylesheet" href="static/style.css">
+    </head>
+    <body>
+        <div id="app">
+            <div class = "v-margin"></div>
+            <div id="side-bar">
+                <div id="brand"></div>
+                <div class = "thumbnail-list-container-title">
+                    <v-icon color ="#BDBDBD">movie</v-icon>
+                    <span>Viewed ({{(rs === "undefined")? 0: rs.interactions.length}})</span>
+                </div>
+                <div id="empty-interactions" v-if="rs.interactions.length == 0">
+                    <p class = "empty-interactions-title">No viewed movies :( </p>
+                    <p>Pick movies from de chart on the rigth. </p>
+                    <p>As more user information is added into the system, 
+                    recommendations should improve.</p>
+                    </p>
+                </div>
+                <div class = "thumbnail-list-container">
+                    <transition-group name="list-complete" tag="p">
+                    <movie-thumbnail 
+                        v-for = "movie in rs.interactions" 
+                        :movie="movie"
+                        :key="movie.item_id"
+                        v-on:remove-movie="remove_movie($event)"
+                    ></movie-thumbnail>
+                    </transition-group>
+                 
+                </div>
+            </div>
+            <div id="main-panel">
+                <div id = "chart-panel"></div>
+                <div id = "recommended-panel" class = "thumbnail-list-container">
+                    <transition-group name="list-complete" tag="p">
+                        <movie-thumbnail 
+                            v-for = "movie in rs.recommended" 
+                            :movie="movie"
+                            :removable="false"
+                            :key="movie.item_id"
+                        ></movie-thumbnail>
+                    </transition-group>
+                </div>
+            </div>
+            <div class = "v-margin"></div>
+        </div>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+        <script type="module" src="static/app.js"></script>
+    </body>
+</html>
