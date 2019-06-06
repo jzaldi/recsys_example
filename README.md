@@ -3,6 +3,9 @@
 El modelo está desarrollado en `pytorch` y su implementación se puede encontrar
 en [el módulo model](model).
 
+* [Explicación de autoencoders](Autoencoders.ipynb).
+* [Entrenamiento para el sistema de recomendación](Entrenamiento.ipynb).
+
 Se puede correr una aplicación de ejemplo mediante un contenedor docker con
 los siguientes comandos.
 
