@@ -9,7 +9,8 @@
         <div id="app">
             <div class = "v-margin"></div>
             <div id="side-bar">
-                <div id="brand"></div>
+                <div id="brand">
+                </div>
                 <div class = "thumbnail-list-container-title">
                     <v-icon color ="#BDBDBD">movie</v-icon>
                     <span>Viewed ({{(rs === "undefined")? 0: rs.interactions.length}})</span>
@@ -34,7 +35,25 @@
                 </div>
             </div>
             <div id="main-panel">
-                <div id = "chart-panel"></div>
+                <div id = "movie_selector">
+                         <v-autocomplete
+        v-model="select"
+        :items="rs.movies"
+        :item-text="`movie_title`"
+        :readonly="false"
+        :label="`Select watched movie`"
+        prepend-icon="mdi-city"
+        @keyup.native.enter="rs.add_interaction(select)"
+        return-object
+        dark
+      >
+                </div>
+                <div id = "chart-panel">
+                </div>
+                <div id = "recommended-title">
+                     <v-icon color ="#BDBDBD">star</v-icon>
+                    <span>Top recommendations</span>
+                </div>
                 <div id = "recommended-panel" class = "thumbnail-list-container">
                     <transition-group name="list-complete" tag="p">
                         <movie-thumbnail 

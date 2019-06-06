@@ -14,4 +14,3 @@ los siguientes comandos.
 Se abrirá una aplicación en el puerto 8899 con la siguiente pinta.
 
 ![](static/screen_cap.png)
-

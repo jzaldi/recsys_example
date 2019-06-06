@@ -31,11 +31,33 @@ html, body{
     width: 100%;
 }
 
+#movie_selector{
+    padding-left: 50px;
+    padding-top: 10px;
+    height: 50px;
+    max-width: 600px;
+}
+
 #chart-panel{
-    height: calc(100% - 200px);
+    height: calc(100% - 314px);
     width: 100%;
 }
 
+#select-genre{
+    position: absolute;
+    bottom: 264px;
+    left: 260px;
+}
+
+#recommended-title{
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    height: 64px;
+    padding-top: 10px;
+    text-align: right;
+    color: #BDBDBD;
+}
 #recommended-panel{
     max-height: 200px;
     width: 100%;
@@ -188,3 +210,4 @@ stroke: #BDBDBD;
     font-size: 18px;
     font-weight: 600;
 }
+

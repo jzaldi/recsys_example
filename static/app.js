@@ -37,6 +37,7 @@ class RecommenderSystem{
      * @param {*} movie Referencia a una película en movies. 
      */
     add_interaction(movie){
+        console.log(movie);
         if(!this.interactions.includes(movie)){
             this.interactions.unshift(movie);
             this.refresh_scores();
@@ -130,7 +131,7 @@ class BubbleChart{
             primary: "#004481",
             accent: "#5BBEFF"
         }
-        this.selected_genre = "Romance";
+        this.selected_genre = ["Romance"];
         this.recommender = recommender;
 
         const self = this;
@@ -139,7 +140,7 @@ class BubbleChart{
         });
 
         this.container_selector = container_selector;
-        this.margin = {top: 100, bottom: 200, left: 150, right: 150};
+        this.margin = {top: 100, bottom: 100, left: 150, right: 150};
         this.create_chart();
     }
     /**
@@ -223,7 +224,11 @@ class BubbleChart{
                 .style("fill", function(d){ return self.colors.primary;})
                 .style("fill-opacity", 0.8)
                 .style("cursor", "pointer")
-                .on("click", function(e){ self.recommender.add_interaction(e);})
+                .on("click", function(e){ 
+                    self.recommender.add_interaction(e);
+                    self.selected_genre = e.genre;
+                })
+
 
 
         this.create_tooltip();
@@ -303,10 +308,13 @@ class BubbleChart{
             .duration(500)
             .attr("cx", function(d){return x(d.score)})
             .style("fill", function(d){
-                return (d.genre.includes(self.selected_genre))? 
-                    self.colors.accent: self.colors.primary;})
+                const any_genre =  self.selected_genre
+                    .some(r=> d.genre.includes(r))
+                return any_genre? self.colors.accent: self.colors.primary;
+            })
             .style("fill-opacity", function(d){
-                return (self.recommender.interactions.includes(d))? 0.4: 0.8;})
+                return (self.recommender.interactions.includes(d))? 0.4: 0.8;
+            })
 
         d3.select(".x-axis").call(d3.axisBottom(x))
         d3.select(".y-axis").call(d3.axisLeft(y))
@@ -348,7 +356,9 @@ new Vue({
     el: "#app",
     data: {
         rs: null,
-        chart: null
+        chart: null,
+        select: "A",
+        items: ["A", "B"]
     },
     created: function(){
         const self = this;
